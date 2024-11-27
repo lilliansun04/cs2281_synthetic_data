@@ -1,0 +1,8 @@
+You will be given a text and your goal is to the following:
+1) Give 5 keywords that should be in a good summary of this piece of text.
+2) Give a summary that contains those 5 keywords, which is around 5 sentences.
+
+You should format your answer as follows where you replace the words in quotes with your answers.
+
+<keywords> "keyword1", "keyword2", "keyword3", "keyword4", "keyword5"
+<summary> "your summary here"

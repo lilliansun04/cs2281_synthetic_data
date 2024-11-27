@@ -1,0 +1,4 @@
+Can you generate a question about this text and answer (1 sentence) in the following format:
+
+<Q>: [Question here]
+<A>: [Answer here]
