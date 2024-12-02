@@ -1,0 +1,14 @@
+You will be given a text, and based on the text need to generate a summary and 5 questions about the text that can be answered using the summary. It is very important that the questions can be answered accurately only using the summary. Make sure the questions are yes/no questions.
+
+Give your response in the following format.
+[summary] Your summary here
+[q1] Question 1
+[a1] Answer 1 
+[q2] Question 2
+[a2] Answer 2
+[q3] Question 3
+[a3] Answer 3 
+[q4] Question 4
+[a4] Answer 4
+[q5] Question 5
+[a5] Answer 5 

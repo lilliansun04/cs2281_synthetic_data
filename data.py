@@ -6,7 +6,7 @@ import json
 
 MAX_FILE_LIMIT = 10
 
-verbose = False
+verbose = True
 
 client = OpenAI()
 
@@ -17,7 +17,7 @@ client = OpenAI()
 # }
 #
 class SummaryGenerator:
-  def __init__(self, model = 'gpt-4-turbo', version = 'v1', temperature = 0.1):
+  def __init__(self, model = 'gpt-4o-mini', version = 'v1', temperature = 0.1):
     self.temperature = temperature
     self.model = model
     with open(f'prompts/summary/{version}.txt', 'r') as f:
@@ -109,6 +109,103 @@ class SummaryGenerator:
         'summary' : summary
       }
 
+class QnAGenerator:
+  def __init__(self, model = 'gpt-4o-mini', version = 'v1', temperature = 0.1):
+    self.temperature = temperature
+    self.model = model
+    with open(f'prompts/qna/{version}.txt', 'r') as f:
+      self.system_prompt = f.read()
+
+  # takes in a qna section and returns a list of dictionaries {'Q' : str, 'A' : bool}
+  def parse_qna(self, text):
+    text = text.split('[')
+
+    assert len(text) == 11
+
+    qna = []
+
+    for i in range(5):
+      q = text[2 * i+1]
+      a = text[2 * i+2]
+
+      q = q.split(']')[1]
+
+      ans = False
+
+      a = a.lower()
+
+      if 'yes' in a:
+        ans = True
+      elif 'no' in a:
+        ans = False
+      else:
+        raise RuntimeWarning(f'Got invalid response {ans}')
+    
+      qna.append({'Q' : q, 'A' : ans})
+    
+    return qna
+
+  def __call__(self, text):
+    message = [
+      # initially we have the system prompt
+      {
+        "role" : "system",
+        "content" : [
+        {
+            "text" : self.system_prompt,
+            "type" : "text"
+        }
+        ]
+      },
+      # then add the texts as needed
+      {
+        "role" : "user",
+        "content" : [
+        {
+          "text" : text,
+          "type" : "text"
+        }
+        ]
+      }
+    ]
+      
+    response = client.chat.completions.create(
+        model=self.model,
+        messages=message,
+        response_format={
+          "type": "text"
+        },
+        temperature=self.temperature,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+  
+  # parse the response
+
+    if response.choices[0].finish_reason != 'stop':
+      raise RuntimeWarning(f'Got Error in prompting: {response.choices[0].finish_reason}')
+    else:
+      if verbose:
+        print('Got Response')
+      response_text = response.choices[0].message.content
+      
+      if verbose:
+        print(response_text)
+
+      # find the locations of where the responses start
+      q1_start = response_text.find('[q1]')
+
+      summary = response_text[len('[summary]'):q1_start]
+
+      qna = self.parse_qna(response_text[q1_start:])
+
+      return {
+        'summary' : summary,
+        'qna' : qna
+      }
+
 def main():
   args = sys.argv
 
@@ -118,14 +215,17 @@ def main():
     for filename in f:
       filenames.append(filename)
 
-  generator = SummaryGenerator()
+  mode = args[2] # qna or summary
+
+  generator = SummaryGenerator() if mode == 'summary' else QnAGenerator()
+
 
   responses = []
 
   for file in filenames[:MAX_FILE_LIMIT]:
     with open(file, 'r') as f:
       text = f.read()
-      
+          
       try:
         responses.append({'filename' : file, 'response' : generator(text)})
       except RuntimeWarning as e:
@@ -133,6 +233,7 @@ def main():
 
   with open("out.json", "w") as f:
     json.dump(responses, f)
+    
 
   
 
