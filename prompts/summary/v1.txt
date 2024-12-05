@@ -4,5 +4,5 @@ You will be given a text and your goal is to the following:
 
 You should format your answer as follows where you replace the words in quotes with your answers.
 
-<keywords> "keyword1", "keyword2", "keyword3", "keyword4", "keyword5"
-<summary> "your summary here"
+[keywords] "keyword1", "keyword2", "keyword3", "keyword4", "keyword5"
+[summary] "your summary here"

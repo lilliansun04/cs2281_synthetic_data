@@ -27,8 +27,8 @@ class SummaryGenerator:
     text = text.split(',') # first split by commas
 
     if len(text) != num_keywords:
-      print('----- GOT BAD RESPONSE FOR KEYWORDS ------')
       print(text)
+      raise RuntimeWarning('----- GOT BAD RESPONSE FOR KEYWORDS ------')
 
     keywords = []
     for kw in text:
@@ -40,7 +40,7 @@ class SummaryGenerator:
     return keywords
 
   def parse_summary(self, text):
-    text = text.split('>')[1]
+    text = text.split(']')[1]
     if text[0] == " ":
       return text[1:]
     else:
@@ -96,9 +96,15 @@ class SummaryGenerator:
         print(response_text)
 
       # find the locations of where the responses start
-      keywords_start = response_text.find('<keywords>')
+      keywords_start = response_text.find('[keywords]')
 
-      summary_start = response_text.find('<summary>')
+      if keywords_start == -1:
+        raise RuntimeWarning('Could not find keywords start.')
+
+      summary_start = response_text.find('[summary]')
+
+      if summary_start == -1:
+        raise RuntimeWarning('Could not find summary start.')
 
       keywords = self.parse_keywords(response_text[keywords_start:summary_start])
 
@@ -213,12 +219,11 @@ def main():
 
   with open(args[1], "r") as f:
     for filename in f:
-      filenames.append(filename)
+      filenames.append(filename.strip())
 
   mode = args[2] # qna or summary
 
   generator = SummaryGenerator() if mode == 'summary' else QnAGenerator()
-
 
   responses = []
 
@@ -231,7 +236,7 @@ def main():
       except RuntimeWarning as e:
         print(e)
 
-  with open("out.json", "w") as f:
+  with open(f"synthetic/{args[1]}.json", "w") as f:
     json.dump(responses, f)
     
 

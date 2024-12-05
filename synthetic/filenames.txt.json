@@ -1,0 +1,29 @@
+[
+  {
+    "filename": "texts/oscar_wilde.txt",
+    "response": {
+      "keywords": [
+        "Oscar Wilde",
+        "comedy",
+        "double lives",
+        "Lady Bracknell",
+        "imprisonment"
+      ],
+      "summary": "\"The Importance of Being Earnest is a play by Oscar Wilde that showcases a farcical comedy centered around two young men leading double lives to escape social obligations. The play features memorable characters, including the formidable Lady Bracknell, and is celebrated for its sharp wit and humor. Despite its initial success, Wilde's career took a tragic turn due to his imprisonment for homosexual acts shortly after the play's debut. The play's closure after 86 performances marked a significant moment in Wilde's life, as he faced societal backlash. Ultimately, Wilde published the play from exile in Paris, but he never returned to writing comic or dramatic works.\""
+    }
+  },
+  {
+    "filename": "texts/hamlet.txt",
+    "response": {
+      "keywords": ["Hamlet", "revenge", "Claudius", "tragedy", "Shakespeare"],
+      "summary": "\"Hamlet is a tragedy written by William Shakespeare between 1599 and 1601, and is known as his longest play. The story revolves around Prince Hamlet's quest for revenge against his uncle Claudius, who has murdered Hamlet's father to take the throne and marry Hamlet's mother. This play is considered one of the most powerful and influential tragedies in the English language. Various sources have been suggested for Shakespeare's work, including ancient Greek tragedies and the story of Amleth. Ultimately, Hamlet remains a timeless tale of betrayal and vengeance.\""
+    }
+  },
+  {
+    "filename": "texts/macbeth.txt",
+    "response": {
+      "keywords": ["Lady Macbeth", "regicide", "guilt", "madness", "powerful"],
+      "summary": "Lady Macbeth is a powerful character in Shakespeare's tragedy, who initially manipulates her husband into committing regicide to fulfill their ambition. As the play progresses, her guilt over their crimes leads her into madness, showcasing the psychological consequences of their actions. Despite her early influence, her role diminishes after King Duncan's murder, and she becomes a mere spectator to Macbeth's tyranny. Her famous sleepwalking scene highlights her internal struggle and the weight of her guilt. Ultimately, her tragic end serves as a catalyst for Macbeth's own despair and reflection on the consequences of their ambition."
+    }
+  }
+]
