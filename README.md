@@ -3,4 +3,5 @@
 ## Data Generation
 To generate the data, run data.py with as
 
-`data.py \<FILES TO PROCESS\>.txt
+`data.py FILES mode`
+where `FILES` is the name of the .txt file that contains the files to be processed. mode is either `summary` or `qna`
