@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from openai import OpenAI
+import pandas as pd
+import time
 
 import sys
 import json
@@ -211,6 +213,53 @@ class QnAGenerator:
         'summary' : summary,
         'qna' : qna
       }
+
+def process_split(df, generator, split : int, verbose : bool = False):
+    df_parse = df[df.split == split] # start with the first split
+    print(f'----- Parsing split {split} -----')
+    print(f'----- Number of articles to parse: {df_parse.shape[0]} -----')
+
+    start_time = time.time()
+
+    results = []
+    for i, (idx, row) in enumerate(df_parse.iterrows()):
+        if (i+1) % 16 == 0 and verbose:
+            print(f'Sample {i+1}') 
+        id = row.id
+        article = row.article
+        human_summary = row.highlights
+        
+        try:
+            out = generator(article)
+            out['id'] = id
+            out['article'] = article
+            out['gpt_summary'] = out.pop('summary')
+            out['gpt_keywords'] = out.pop('keywords')
+            out['human_summary'] = human_summary
+            results.append(out)
+        except Exception as e:
+            print(e)
+
+    end_time = time.time()
+
+    print('----- ELAPSED TIME -----')
+    print(f'{end_time - start_time:0.1f} seconds')
+
+    # save results to dataframe
+    df_out = pd.DataFrame(columns = results[0].keys())
+    for result in results:
+        for key in result.keys():
+            result[key] = [result[key]] # otherwise the lists are ignored
+        df_row = pd.DataFrame.from_dict(result)
+        df_out = pd.concat([df_out, df_row])
+    
+    return df_out
+
+def process_splits(df, generator, split_list, synthetic_data_dir = 'datasets/synthetic/summary/', mode='train'):
+    for split in split_list:
+        df_out = process_split(df, generator, split)
+        df_out.to_csv(f'{synthetic_data_dir}{mode}_{split}.csv')
+
 
 def main():
 
