@@ -213,6 +213,7 @@ class QnAGenerator:
       }
 
 def main():
+
   args = sys.argv
 
   filenames = []
