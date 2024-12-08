@@ -6,7 +6,7 @@ import json
 
 MAX_FILE_LIMIT = 10
 
-verbose = True
+verbose = False
 
 client = OpenAI()
 
