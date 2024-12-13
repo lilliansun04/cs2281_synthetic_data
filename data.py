@@ -159,6 +159,19 @@ class QnAGenerator:
       qna.append({'Q' : q, 'A' : ans})
     
     return qna
+  
+  def parse_response(self, response_text):
+      # find the locations of where the responses start
+      q1_start = response_text.find('[q1]')
+
+      summary = response_text[len('[summary]'):q1_start]
+
+      qna = self.parse_qna(response_text[q1_start:])
+
+      return {
+        'summary' : summary,
+        'qna' : qna
+      }
 
   def get_prompt(self, text):
     message = [
@@ -201,8 +214,6 @@ class QnAGenerator:
         presence_penalty=0
     )
   
-  # parse the response
-
     if response.choices[0].finish_reason != 'stop':
       raise RuntimeWarning(f'Got Error in prompting: {response.choices[0].finish_reason}')
     else:
@@ -212,23 +223,12 @@ class QnAGenerator:
       
       if verbose:
         print(response_text)
-
-      # find the locations of where the responses start
-      q1_start = response_text.find('[q1]')
-
-      summary = response_text[len('[summary]'):q1_start]
-
-      qna = self.parse_qna(response_text[q1_start:])
-
-      return {
-        'summary' : summary,
-        'qna' : qna
-      }
+      
+      # parse the response    
+      return self.parse_response(response_text)
 
 def process_split(df, generator, split : int, verbose : bool = False):
     df_parse = df[df.split == split] # start with the first split
-
-    
 
     print(f'----- Parsing split {split} -----')
     print(f'----- Number of articles to parse: {df_parse.shape[0]} -----')
@@ -248,14 +248,22 @@ def process_split(df, generator, split : int, verbose : bool = False):
         
         try:
             out = generator(article)
-            out['id'] = id
-            out['article'] = article
-            out['gpt_summary'] = out.pop('summary')
-            out['gpt_keywords'] = out.pop('keywords')
-            out['human_summary'] = human_summary
+
+            if generator is SummaryGenerator:
+              out['id'] = id
+              out['article'] = article
+              out['gpt_summary'] = out.pop('summary')
+              out['gpt_keywords'] = out.pop('keywords')
+              out['human_summary'] = human_summary
+            else:
+              out['id'] = id
+              out['article'] = article
+              out['human_summary'] = human_summary
+              out['gpt_summary'] = out.pop('summary')
+              out['qna'] = json.dumps(out.pop('qna'))
             results.append(out)
         except Exception as e:
-            print(e)
+            print(f'Error parsing response: {e}')
 
     end_time = time.time()
 
