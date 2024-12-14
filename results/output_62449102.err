@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-675df60d-5f1ea5341cc301533fb46f97;c230ef9f-86d6-474a-9a1e-9cfd1113f74c)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2-2b-it/resolve/main/config.json.
+Access to model google/gemma-2-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/n/home11/lilliansun/cs2281_synthetic_data/finetuning_summarization_no_eval.py", line 168, in <module>
+    main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps)
+  File "/n/home11/lilliansun/cs2281_synthetic_data/finetuning_summarization_no_eval.py", line 66, in main
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/models/auto/tokenization_auto.py", line 794, in from_pretrained
+    config = AutoConfig.from_pretrained(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/models/auto/configuration_auto.py", line 1138, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2-2b-it.
+401 Client Error. (Request ID: Root=1-675df60d-5f1ea5341cc301533fb46f97;c230ef9f-86d6-474a-9a1e-9cfd1113f74c)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2-2b-it/resolve/main/config.json.
+Access to model google/gemma-2-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
