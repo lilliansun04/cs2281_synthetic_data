@@ -2,3 +2,5 @@
 datasets/*
 __pycache__
 *.jsonl
+synthetic/summary_clean.csv
+synthetic/summary_train.csv
