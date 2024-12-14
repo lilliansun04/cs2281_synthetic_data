@@ -1,0 +1,26 @@
+~/cs2281_synthetic_data ~/cs2281_synthetic_data
+~/cs2281_synthetic_data ~/cs2281_synthetic_data ~/cs2281_synthetic_data
+Running finetuning_summarization.py
+Saving results to results/summarization/t5-small_1_full_run_1
+Model name: google/flan-t5-small
+Output directory: results/summarization/
+Scratch directory: /n/netscratch/hlakkaraju_lab/Lab/lilliansun/synthetic_data/
+Unique save name: t5-small_1_full_run_1
+Dataset proportion: 1.0
+Summarization train filepath: synthetic/summary_train.csv
+Summarization val filepath: synthetic/summary_val.csv
+Summarization test filepath: synthetic/summary_test.csv
+Batch size: 8
+Evaluation steps: 40
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 542
+Size of input_ids tensor: torch.Size([2736]), dtype: torch.int64
+Actual sequence length: 293
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 965
+BEFORE TRAINING GPU USAGE
+GPU memory allocated: 89.76 MB
+GPU memory cached: 96.00 MB
+
+Benchmark Evaluation (Before Training):
+DONE
