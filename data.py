@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from openai import OpenAI
+import pandas as pd
+import time
 
 import sys
 import json
@@ -46,8 +48,8 @@ class SummaryGenerator:
     else:
       return text
 
-  def __call__(self, text):
-    message = [
+  def get_prompt(self, text):
+    message = message = [
       # initially we have the system prompt
       {
         "role" : "system",
@@ -69,7 +71,32 @@ class SummaryGenerator:
         ]
       }
     ]
+    return message
 
+  def parse_response(self, text):
+    # find the locations of where the responses start
+      keywords_start = text.find('[keywords]')
+
+      if keywords_start == -1:
+        raise RuntimeWarning('Could not find keywords start.')
+
+      summary_start = text.find('[summary]')
+
+      if summary_start == -1:
+        raise RuntimeWarning('Could not find summary start.')
+
+      keywords = self.parse_keywords(text[keywords_start:summary_start])
+
+      summary = self.parse_summary(text[summary_start:])
+
+      return {
+        'keywords' : keywords,
+        'summary' : summary
+      }
+
+  def __call__(self, text):
+    message = self.get_prompt(text)
+    
     response = client.chat.completions.create(
         model=self.model,
         messages=message,
@@ -95,25 +122,7 @@ class SummaryGenerator:
       if verbose:
         print(response_text)
 
-      # find the locations of where the responses start
-      keywords_start = response_text.find('[keywords]')
-
-      if keywords_start == -1:
-        raise RuntimeWarning('Could not find keywords start.')
-
-      summary_start = response_text.find('[summary]')
-
-      if summary_start == -1:
-        raise RuntimeWarning('Could not find summary start.')
-
-      keywords = self.parse_keywords(response_text[keywords_start:summary_start])
-
-      summary = self.parse_summary(response_text[summary_start:])
-
-      return {
-        'keywords' : keywords,
-        'summary' : summary
-      }
+      return self.parse_response(response_text)
 
 class QnAGenerator:
   def __init__(self, model = 'gpt-4o-mini', version = 'v1', temperature = 0.1):
@@ -150,8 +159,21 @@ class QnAGenerator:
       qna.append({'Q' : q, 'A' : ans})
     
     return qna
+  
+  def parse_response(self, response_text):
+      # find the locations of where the responses start
+      q1_start = response_text.find('[q1]')
 
-  def __call__(self, text):
+      summary = response_text[len('[summary]'):q1_start]
+
+      qna = self.parse_qna(response_text[q1_start:])
+
+      return {
+        'summary' : summary,
+        'qna' : qna
+      }
+
+  def get_prompt(self, text):
     message = [
       # initially we have the system prompt
       {
@@ -174,6 +196,10 @@ class QnAGenerator:
         ]
       }
     ]
+    return message
+
+  def __call__(self, text):
+    message = self.get_prompt(text)
       
     response = client.chat.completions.create(
         model=self.model,
@@ -188,8 +214,6 @@ class QnAGenerator:
         presence_penalty=0
     )
   
-  # parse the response
-
     if response.choices[0].finish_reason != 'stop':
       raise RuntimeWarning(f'Got Error in prompting: {response.choices[0].finish_reason}')
     else:
@@ -199,21 +223,74 @@ class QnAGenerator:
       
       if verbose:
         print(response_text)
+      
+      # parse the response    
+      return self.parse_response(response_text)
 
-      # find the locations of where the responses start
-      q1_start = response_text.find('[q1]')
+def process_split(df, generator, split : int, verbose : bool = False):
+    df_parse = df[df.split == split] # start with the first split
 
-      summary = response_text[len('[summary]'):q1_start]
+    print(f'----- Parsing split {split} -----')
+    print(f'----- Number of articles to parse: {df_parse.shape[0]} -----')
 
-      qna = self.parse_qna(response_text[q1_start:])
+    if df_parse.shape[0] == 0:
+      return None
 
-      return {
-        'summary' : summary,
-        'qna' : qna
-      }
+    start_time = time.time()
+
+    results = []
+    for i, (idx, row) in enumerate(df_parse.iterrows()):
+        if (i+1) % 16 == 0 and verbose:
+            print(f'Sample {i+1}') 
+        id = row.id
+        article = row.article
+        human_summary = row.highlights
+        
+        try:
+            out = generator(article)
+
+            if generator is SummaryGenerator:
+              out['id'] = id
+              out['article'] = article
+              out['gpt_summary'] = out.pop('summary')
+              out['gpt_keywords'] = out.pop('keywords')
+              out['human_summary'] = human_summary
+            else:
+              out['id'] = id
+              out['article'] = article
+              out['human_summary'] = human_summary
+              out['gpt_summary'] = out.pop('summary')
+              out['qna'] = json.dumps(out.pop('qna'))
+            results.append(out)
+        except Exception as e:
+            print(f'Error parsing response: {e}')
+
+    end_time = time.time()
+
+    print('----- ELAPSED TIME -----')
+    print(f'{end_time - start_time:0.1f} seconds')
+
+    # save results to dataframe
+    df_out = pd.DataFrame(columns = results[0].keys())
+    for result in results:
+        for key in result.keys():
+            result[key] = [result[key]] # otherwise the lists are ignored
+        df_row = pd.DataFrame.from_dict(result)
+        df_out = pd.concat([df_out, df_row])
+    
+    return df_out
+
+def process_splits(df, generator, split_list, synthetic_data_dir = 'datasets/synthetic/summary/', mode='train'):
+    for split in split_list:
+        df_out = process_split(df, generator, split)
+
+        if df_out is None:
+          continue
+
+        df_out.to_csv(f'{synthetic_data_dir}{mode}_{split}.csv')
+
 
 def main():
-
   args = sys.argv
 
   filenames = []
