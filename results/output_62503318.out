@@ -1,13 +1,13 @@
 ~/cs2281_synthetic_data ~/cs2281_synthetic_data
 ~/cs2281_synthetic_data ~/cs2281_synthetic_data ~/cs2281_synthetic_data
 Running finetuning_summarization_no_eval.py
-Saving results to results/summarization/t5-large_1_no_eval
+Saving results to results/summarization/t5-large_1_no_eval_2
 Number of GPUs available: 1
 GPU 0: NVIDIA H100 80GB HBM3
 Model name: google/flan-t5-large
 Output directory: results/summarization/
 Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/
-Unique save name: t5-large_1_no_eval
+Unique save name: t5-large_1_no_eval_2
 Dataset proportion: 1.0
 Summarization train filepath: synthetic/summary_train.csv
 Summarization val filepath: synthetic/summary_val.csv
@@ -41,5 +41,5 @@ Actual sequence length: 965
 {'loss': 0.7146, 'grad_norm': 0.3884846568107605, 'learning_rate': 6.271576524741082e-06, 'epoch': 0.87}
 {'loss': 0.712, 'grad_norm': 0.338717520236969, 'learning_rate': 3.970080552359034e-06, 'epoch': 0.92}
 {'loss': 0.7171, 'grad_norm': 0.3868106007575989, 'learning_rate': 1.668584579976985e-06, 'epoch': 0.97}
-{'train_runtime': 17616.3177, 'train_samples_per_second': 1.579, 'train_steps_per_second': 0.049, 'train_loss': 1.2077189951414893, 'epoch': 1.0}
+{'train_runtime': 17588.9699, 'train_samples_per_second': 1.581, 'train_steps_per_second': 0.049, 'train_loss': 1.2077189951414893, 'epoch': 1.0}
 DONE
