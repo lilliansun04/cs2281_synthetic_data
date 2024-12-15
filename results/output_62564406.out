@@ -30,3 +30,20 @@ Actual sequence length: 965
 {'loss': 0.532, 'grad_norm': 0.39716795086860657, 'learning_rate': 4.079401611047181e-05, 'epoch': 0.18}
 {'loss': 0.4992, 'grad_norm': 0.3353777825832367, 'learning_rate': 3.849252013808976e-05, 'epoch': 0.23}
 {'loss': 0.4981, 'grad_norm': 0.28876784443855286, 'learning_rate': 3.619102416570771e-05, 'epoch': 0.28}
+{'loss': 0.4911, 'grad_norm': 0.2822535037994385, 'learning_rate': 3.3889528193325666e-05, 'epoch': 0.32}
+{'loss': 0.4834, 'grad_norm': 0.26064398884773254, 'learning_rate': 3.1588032220943615e-05, 'epoch': 0.37}
+{'loss': 0.4855, 'grad_norm': 0.2820589542388916, 'learning_rate': 2.9286536248561568e-05, 'epoch': 0.41}
+{'loss': 0.4791, 'grad_norm': 0.30813372135162354, 'learning_rate': 2.698504027617952e-05, 'epoch': 0.46}
+{'loss': 0.4888, 'grad_norm': 0.2586323022842407, 'learning_rate': 2.468354430379747e-05, 'epoch': 0.51}
+{'loss': 0.4846, 'grad_norm': 0.274117112159729, 'learning_rate': 2.238204833141542e-05, 'epoch': 0.55}
+{'loss': 0.482, 'grad_norm': 0.33405447006225586, 'learning_rate': 2.008055235903337e-05, 'epoch': 0.6}
+{'loss': 0.4838, 'grad_norm': 0.2751496434211731, 'learning_rate': 1.7779056386651323e-05, 'epoch': 0.64}
+{'loss': 0.4781, 'grad_norm': 0.28302183747291565, 'learning_rate': 1.5477560414269276e-05, 'epoch': 0.69}
+{'loss': 0.4847, 'grad_norm': 0.282122403383255, 'learning_rate': 1.3176064441887228e-05, 'epoch': 0.74}
+{'loss': 0.4815, 'grad_norm': 0.2566480040550232, 'learning_rate': 1.0874568469505179e-05, 'epoch': 0.78}
+{'loss': 0.4757, 'grad_norm': 0.27216118574142456, 'learning_rate': 8.57307249712313e-06, 'epoch': 0.83}
+{'loss': 0.4757, 'grad_norm': 0.3423197567462921, 'learning_rate': 6.271576524741082e-06, 'epoch': 0.87}
+{'loss': 0.4773, 'grad_norm': 0.28568005561828613, 'learning_rate': 3.970080552359034e-06, 'epoch': 0.92}
+{'loss': 0.482, 'grad_norm': 0.3220430314540863, 'learning_rate': 1.668584579976985e-06, 'epoch': 0.97}
+{'train_runtime': 6115.9093, 'train_samples_per_second': 4.548, 'train_steps_per_second': 0.142, 'train_loss': 1.2367700087324522, 'epoch': 1.0}
+DONE

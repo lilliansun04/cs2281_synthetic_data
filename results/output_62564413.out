@@ -26,3 +26,10 @@ Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
 Actual sequence length: 965
 {'loss': 15.728, 'grad_norm': 1292.58740234375, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
 {'loss': 1.9154, 'grad_norm': 0.7964287996292114, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}
+{'loss': 0.4309, 'grad_norm': 0.258138507604599, 'learning_rate': 4.3095512082853856e-05, 'epoch': 0.14}
+{'loss': 0.4252, 'grad_norm': 0.23475061357021332, 'learning_rate': 4.079401611047181e-05, 'epoch': 0.18}
+{'loss': 0.4168, 'grad_norm': 0.2063114047050476, 'learning_rate': 3.849252013808976e-05, 'epoch': 0.23}
+{'loss': 0.4137, 'grad_norm': 0.20887413620948792, 'learning_rate': 3.619102416570771e-05, 'epoch': 0.28}
+{'loss': 0.4093, 'grad_norm': 0.23905007541179657, 'learning_rate': 3.3889528193325666e-05, 'epoch': 0.32}
+{'loss': 0.4085, 'grad_norm': 0.23720134794712067, 'learning_rate': 3.1588032220943615e-05, 'epoch': 0.37}
+{'loss': 0.4133, 'grad_norm': 0.23663242161273956, 'learning_rate': 2.9286536248561568e-05, 'epoch': 0.41}
