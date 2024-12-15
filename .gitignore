@@ -4,3 +4,5 @@ __pycache__
 *.jsonl
 synthetic/summary_clean.csv
 synthetic/summary_train.csv
+synthetic/qna_batch_0.csv
+synthetic/qna_train.csv

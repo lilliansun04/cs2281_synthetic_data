@@ -1,0 +1,35 @@
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+Running finetuning_qna_no_eval_human.py
+Saving results to results/qna/t5-large_1_no_eval_human
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
+Model name: google/flan-t5-large
+Output directory: results/qna/
+Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/qna/
+Unique save name: t5-large_1_no_eval_human
+Dataset proportion: 1.0
+Q&A train filepath: synthetic/qna_train.csv
+Q&A val filepath: synthetic/qna_val.csv
+Q&A test filepath: synthetic/qna_test.csv
+Batch size: 8
+Evaluation steps: 40
+Size of input_ids tensor: torch.Size([393]), dtype: torch.int64
+Actual sequence length: 80
+Size of input_ids tensor: torch.Size([245]), dtype: torch.int64
+Actual sequence length: 124
+Size of input_ids tensor: torch.Size([393]), dtype: torch.int64
+Actual sequence length: 100
+{'loss': 0.5964, 'grad_norm': 1.3140497207641602, 'learning_rate': 4.839615076182839e-05, 'epoch': 0.03}
+{'loss': 0.5327, 'grad_norm': 1.0568907260894775, 'learning_rate': 4.679230152365678e-05, 'epoch': 0.06}
+{'loss': 0.4034, 'grad_norm': 4.537155628204346, 'learning_rate': 4.518845228548517e-05, 'epoch': 0.1}
+{'loss': 0.3467, 'grad_norm': 2.2941782474517822, 'learning_rate': 4.358460304731356e-05, 'epoch': 0.13}
+{'loss': 0.34, 'grad_norm': 4.6903791427612305, 'learning_rate': 4.1980753809141946e-05, 'epoch': 0.16}
+{'loss': 0.3088, 'grad_norm': 3.2429277896881104, 'learning_rate': 4.037690457097033e-05, 'epoch': 0.19}
+{'loss': 0.3248, 'grad_norm': 2.969043254852295, 'learning_rate': 3.8773055332798716e-05, 'epoch': 0.22}
+{'loss': 0.3082, 'grad_norm': 2.2643141746520996, 'learning_rate': 3.7169206094627105e-05, 'epoch': 0.26}
+{'loss': 0.3235, 'grad_norm': 1.7131671905517578, 'learning_rate': 3.5565356856455494e-05, 'epoch': 0.29}
+{'loss': 0.3198, 'grad_norm': 3.093635082244873, 'learning_rate': 3.396150761828388e-05, 'epoch': 0.32}
+{'loss': 0.3205, 'grad_norm': 1.2642221450805664, 'learning_rate': 3.235765838011227e-05, 'epoch': 0.35}
+{'loss': 0.2984, 'grad_norm': 2.7333872318267822, 'learning_rate': 3.075380914194066e-05, 'epoch': 0.38}
+{'loss': 0.2724, 'grad_norm': 2.116298198699951, 'learning_rate': 2.914995990376905e-05, 'epoch': 0.42}
