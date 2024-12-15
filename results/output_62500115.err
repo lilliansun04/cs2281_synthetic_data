@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data/finetuning_summarization_no_eval.py", line 177, in <module>
+    main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps)
+  File "/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data/finetuning_summarization_no_eval.py", line 73, in main
+    summarization_train_dataset = preprocess_summarization_data(summarization_train_filepath, tokenizer, dataset_prop)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data/finetuning_summarization_no_eval.py", line 41, in preprocess_summarization_data
+    df = pd.read_csv(filepath)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/n/home11/lilliansun/.conda/envs/jupyter_py3.11/lib/python3.11/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'synthetic/summary_train.csv'
