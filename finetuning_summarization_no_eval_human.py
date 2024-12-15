@@ -16,7 +16,7 @@ Assumptions about dataset structure:
 '''
 
 input_col = "article"
-label_col = "gpt_summary"  # Column name for labels in the dataset
+label_col = "human_summary"  # Use Human summaries as labels for benchmark
 extra_col = "gpt_keywords"  # Optional column name for additional inputs
 
 print(f"Number of GPUs available: {torch.cuda.device_count()}")
@@ -132,6 +132,7 @@ def main(model_name, output_dir, scratch_dir, summarization_train_filepath, uniq
         # data_collator = data_collator,
     )
 
+    f = open(output_dir+unique_save_name+".csv", "w")
     # INSERT CODE HERE to record metrics throughout training and evaluation
 
     # TODO: make sure to record metrics from eval before any training

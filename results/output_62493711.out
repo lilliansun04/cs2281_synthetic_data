@@ -2,6 +2,8 @@
 ~/cs2281_synthetic_data ~/cs2281_synthetic_data ~/cs2281_synthetic_data
 Running finetuning_summarization_no_eval.py
 Saving results to results/summarization/t5-large_1_no_eval
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
 Model name: google/flan-t5-large
 Output directory: results/summarization/
 Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/
@@ -18,3 +20,9 @@ Size of input_ids tensor: torch.Size([2736]), dtype: torch.int64
 Actual sequence length: 293
 Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
 Actual sequence length: 965
+{'loss': 9.8693, 'grad_norm': 29.1412353515625, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
+{'loss': 1.8554, 'grad_norm': 0.6978844404220581, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}
+{'loss': 0.8459, 'grad_norm': 0.39414748549461365, 'learning_rate': 4.3095512082853856e-05, 'epoch': 0.14}
+{'loss': 0.7823, 'grad_norm': 0.3824249505996704, 'learning_rate': 4.079401611047181e-05, 'epoch': 0.18}
+{'loss': 0.7644, 'grad_norm': 0.37829336524009705, 'learning_rate': 3.849252013808976e-05, 'epoch': 0.23}
+{'loss': 0.7589, 'grad_norm': 0.37086769938468933, 'learning_rate': 3.619102416570771e-05, 'epoch': 0.28}

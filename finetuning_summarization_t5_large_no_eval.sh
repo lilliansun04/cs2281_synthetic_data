@@ -1,7 +1,7 @@
 #!/bin/sh
 #SBATCH --job-name=finetuning_summarization_full
 #SBATCH --partition=kempner_h100 #kempner #seas_gpu,gpu
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:1
 #SBATCH --mem=200gb
 #SBATCH -t 1-23:59                                                          # Runtime in D-HH:MM
 #SBATCH -o /n/home11/lilliansun/cs2281_synthetic_data/results/output_%j.out        # File to which STDOUT will be written, %j inserts jobid
