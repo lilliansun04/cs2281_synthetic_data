@@ -1,5 +1,5 @@
 import torch
-from transformers import Trainer, TrainingArguments, AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import Trainer, TrainingArguments, AutoTokenizer, AutoModelForSeq2SeqLM, set_seed
 from datasets import Dataset
 # from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 import os
 import ast
+import random
 
 '''
 Assumptions about dataset structure:
@@ -27,19 +28,15 @@ class SummarizationTrainer(Trainer):
     """
     Custom trainer that supports additional inputs and custom loss functions.
     """
-    # def __init__(self, args, model, train_dataset, eval_dataset, extra_col, data_collator):
-    #     super().__init__(model, args = args, train_dataset = train_dataset, eval_dataset = eval_dataset)
     def __init__(self, args, model, train_dataset, extra_col):
         super().__init__(model, args = args, train_dataset = train_dataset)
         self.extra_col = extra_col
-        # self.data_collator = data_collator
 
 def preprocess_summarization_data(filepath, tokenizer, dataset_prop):
     """
     Preprocess the dataset, tokenize the text, and format for PyTorch.
     """
     df = pd.read_csv(filepath)
-    # TODO: REMOVE subsetting dataset after debugging
     df = df.iloc[:int(len(df) * dataset_prop)]
 
     input_articles = df[input_col].tolist()
@@ -67,14 +64,27 @@ def preprocess_summarization_data(filepath, tokenizer, dataset_prop):
 
     return dataset_tokenized
 
+def set_all_seeds(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    set_seed(seed)
+    
+    # Debug prints
+    print(f"Random test: {random.random()}")
+    print(f"Numpy test: {np.random.rand()}")
+    print(f"Torch test: {torch.rand(1).item()}")
 
-def main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps):    # Load tokenizer and preprocess dataset
+def main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps, random_seed):    # Load tokenizer and preprocess dataset
+    set_all_seeds(random_seed)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     summarization_train_dataset = preprocess_summarization_data(summarization_train_filepath, tokenizer, dataset_prop)
     summarization_val_dataset = preprocess_summarization_data(summarization_val_filepath, tokenizer, dataset_prop)
     summarization_test_dataset = preprocess_summarization_data(summarization_test_filepath, tokenizer, dataset_prop)
-    # Initialize model
-    # model = AutoModelForSeq2SeqLM.from_pretrained(model_name, device_map='auto', token=token)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     # Define training arguments
@@ -92,35 +102,9 @@ def main(model_name, output_dir, scratch_dir, summarization_train_filepath, uniq
         save_steps=eval_steps,
         gradient_checkpointing=True,
         gradient_accumulation_steps=4,
+        seed=random_seed,
         # save_total_limit=2 # limit number of checkpoints for data storage
     )
-
-    # def data_collator(features: list) -> dict:
-    #     """
-    #     Custom data collator for summarization with additional attribute handling.
-    #     """
-    #     batch = {key: [item[key] for item in features] for key in features[0].keys()}
-    #     model_inputs = {
-    #         "input_ids": pad_sequence(
-    #             [torch.tensor(ids).clone().detach() for ids in batch["input_ids"]], 
-    #             batch_first=True, 
-    #             padding_value=tokenizer.pad_token_id
-    #         ),
-    #         "attention_mask": pad_sequence(
-    #             [torch.tensor(ids).clone().detach() for ids in batch["attention_mask"]], 
-    #             batch_first=True, 
-    #             padding_value=0
-    #         ),
-    #         "labels": pad_sequence(
-    #             [torch.tensor(ids).clone().detach() for ids in batch["labels"]], 
-    #             batch_first=True, 
-    #             padding_value=tokenizer.pad_token_id
-    #         )
-    #     }
-    #     # Keep the keywords as a regular list, but store in a metadata field
-    #     if extra_col in batch:
-    #         model_inputs["_metadata_" + extra_col] = batch[extra_col]
-    #     return model_inputs
 
     # Initialize summarization trainer
     summarization_trainer = SummarizationTrainer(
@@ -132,11 +116,6 @@ def main(model_name, output_dir, scratch_dir, summarization_train_filepath, uniq
         # data_collator = data_collator,
     )
 
-    # INSERT CODE HERE to record metrics throughout training and evaluation
-
-    # TODO: make sure to record metrics from eval before any training
-    # summarization_trainer.evaluate()
-
     # Train the model
     summarization_trainer.train()
 
@@ -144,7 +123,6 @@ def main(model_name, output_dir, scratch_dir, summarization_train_filepath, uniq
     pd.DataFrame(summarization_trainer.state.log_history).to_csv(output_dir+unique_save_name+"_train.csv", header=True, index=False)
 
     # save results in csv file in output_dir
-
 
 if __name__ == "__main__":
     import sys
@@ -162,6 +140,7 @@ if __name__ == "__main__":
 
     batch_size = int(sys.argv[9])
     eval_steps = int(sys.argv[10])
+    random_seed = int(sys.argv[11])
 
     print(f"Model name: {model_name}")
     print(f"Output directory: {output_dir}")
@@ -173,5 +152,6 @@ if __name__ == "__main__":
     print(f"Summarization test filepath: {summarization_test_filepath}")
     print(f"Batch size: {batch_size}")
     print(f"Evaluation steps: {eval_steps}")
+    print(f"Random seed: {random_seed}")
 
-    main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps)
+    main(model_name, output_dir, scratch_dir, summarization_train_filepath, unique_save_name, dataset_prop, summarization_val_filepath, summarization_test_filepath, batch_size, eval_steps, random_seed)

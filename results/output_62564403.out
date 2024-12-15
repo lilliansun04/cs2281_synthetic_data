@@ -1,0 +1,29 @@
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+Running finetuning_summarization_no_eval.py
+Saving results to results/summarization/t5-base_1_no_eval_seed_2
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
+Model name: google/flan-t5-base
+Output directory: results/summarization/
+Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/
+Unique save name: t5-base_1_no_eval_seed_2
+Dataset proportion: 1.0
+Summarization train filepath: synthetic/summary_train.csv
+Summarization val filepath: synthetic/summary_val.csv
+Summarization test filepath: synthetic/summary_test.csv
+Batch size: 8
+Evaluation steps: 40
+Random seed: 2
+Random test: 0.9560342718892494
+Numpy test: 0.43599490214200376
+Torch test: 0.6146950721740723
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 542
+Size of input_ids tensor: torch.Size([2736]), dtype: torch.int64
+Actual sequence length: 293
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 965
+{'loss': 9.5592, 'grad_norm': 8.615543365478516, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
+{'loss': 2.1567, 'grad_norm': 5.4981865882873535, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}
+{'loss': 1.2198, 'grad_norm': 1.03268301486969, 'learning_rate': 4.3095512082853856e-05, 'epoch': 0.14}

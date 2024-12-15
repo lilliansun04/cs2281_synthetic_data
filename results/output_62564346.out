@@ -1,0 +1,42 @@
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+Running finetuning_summarization_no_eval.py
+Saving results to results/summarization/t5-small_1_no_eval_seed_2
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
+Model name: google/flan-t5-small
+Output directory: results/summarization/
+Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/
+Unique save name: t5-small_1_no_eval_seed_2
+Dataset proportion: 1.0
+Summarization train filepath: synthetic/summary_train.csv
+Summarization val filepath: synthetic/summary_val.csv
+Summarization test filepath: synthetic/summary_test.csv
+Batch size: 8
+Evaluation steps: 40
+Random seed: 2
+Random test: 0.9560342718892494
+Numpy test: 0.43599490214200376
+Torch test: 0.6146950721740723
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 542
+Size of input_ids tensor: torch.Size([2736]), dtype: torch.int64
+Actual sequence length: 293
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 965
+{'loss': 11.8365, 'grad_norm': 10.682188987731934, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
+{'loss': 4.1067, 'grad_norm': 9.653644561767578, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}
+{'loss': 3.0243, 'grad_norm': 11.801957130432129, 'learning_rate': 4.3095512082853856e-05, 'epoch': 0.14}
+{'loss': 2.6251, 'grad_norm': 13.334948539733887, 'learning_rate': 4.079401611047181e-05, 'epoch': 0.18}
+{'loss': 2.2876, 'grad_norm': 13.456965446472168, 'learning_rate': 3.849252013808976e-05, 'epoch': 0.23}
+{'loss': 2.0099, 'grad_norm': 11.995697975158691, 'learning_rate': 3.619102416570771e-05, 'epoch': 0.28}
+{'loss': 1.7753, 'grad_norm': 10.681572914123535, 'learning_rate': 3.3889528193325666e-05, 'epoch': 0.32}
+{'loss': 1.5934, 'grad_norm': 7.705827713012695, 'learning_rate': 3.1588032220943615e-05, 'epoch': 0.37}
+{'loss': 1.455, 'grad_norm': 5.296092510223389, 'learning_rate': 2.9286536248561568e-05, 'epoch': 0.41}
+{'loss': 1.3873, 'grad_norm': 3.61630916595459, 'learning_rate': 2.698504027617952e-05, 'epoch': 0.46}
+{'loss': 1.3295, 'grad_norm': 2.4658524990081787, 'learning_rate': 2.468354430379747e-05, 'epoch': 0.51}
+{'loss': 1.2828, 'grad_norm': 1.845683217048645, 'learning_rate': 2.238204833141542e-05, 'epoch': 0.55}
+{'loss': 1.2466, 'grad_norm': 1.440102219581604, 'learning_rate': 2.008055235903337e-05, 'epoch': 0.6}
+{'loss': 1.2471, 'grad_norm': 1.1663587093353271, 'learning_rate': 1.7779056386651323e-05, 'epoch': 0.64}
+{'loss': 1.2194, 'grad_norm': 0.9476978182792664, 'learning_rate': 1.5477560414269276e-05, 'epoch': 0.69}
+{'loss': 1.2199, 'grad_norm': 0.8728556632995605, 'learning_rate': 1.3176064441887228e-05, 'epoch': 0.74}
