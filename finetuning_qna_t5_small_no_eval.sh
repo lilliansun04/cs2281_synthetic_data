@@ -31,7 +31,7 @@ scratch_dir="/n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/qna
 dataset_prop=1 # how much of the dataset to use (as a fraction not a percentage)
 # TODO: give a unique name for saving results **IMPORTANT: giving same name as a previous run will overwrite the results and checkpoints!**
 # TODO: edit unique_save_name to match model name
-unique_save_name="t5-small_"$dataset_prop"_no_eval"
+unique_save_name="t5-small_"$dataset_prop"_no_eval_3"
 qna_train_filepath="synthetic/qna_train.csv"
 qna_val_filepath="synthetic/qna_val.csv"
 qna_test_filepath="synthetic/qna_test.csv"
