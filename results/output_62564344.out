@@ -40,3 +40,10 @@ Actual sequence length: 965
 {'loss': 1.2432, 'grad_norm': 1.1567915678024292, 'learning_rate': 1.7779056386651323e-05, 'epoch': 0.64}
 {'loss': 1.2206, 'grad_norm': 1.0018008947372437, 'learning_rate': 1.5477560414269276e-05, 'epoch': 0.69}
 {'loss': 1.2132, 'grad_norm': 0.8652663230895996, 'learning_rate': 1.3176064441887228e-05, 'epoch': 0.74}
+{'loss': 1.201, 'grad_norm': 0.8187561631202698, 'learning_rate': 1.0874568469505179e-05, 'epoch': 0.78}
+{'loss': 1.2125, 'grad_norm': 0.775254487991333, 'learning_rate': 8.57307249712313e-06, 'epoch': 0.83}
+{'loss': 1.2026, 'grad_norm': 0.7558894157409668, 'learning_rate': 6.271576524741082e-06, 'epoch': 0.87}
+{'loss': 1.1875, 'grad_norm': 0.6992874145507812, 'learning_rate': 3.970080552359034e-06, 'epoch': 0.92}
+{'loss': 1.2033, 'grad_norm': 0.7226570248603821, 'learning_rate': 1.668584579976985e-06, 'epoch': 0.97}
+{'train_runtime': 1841.4736, 'train_samples_per_second': 15.104, 'train_steps_per_second': 0.472, 'train_loss': 2.1422707060538446, 'epoch': 1.0}
+DONE

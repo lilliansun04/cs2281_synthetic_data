@@ -25,3 +25,4 @@ Actual sequence length: 293
 Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
 Actual sequence length: 965
 {'loss': 15.728, 'grad_norm': 1292.58740234375, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
+{'loss': 1.9154, 'grad_norm': 0.7964287996292114, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}

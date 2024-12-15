@@ -27,3 +27,6 @@ Actual sequence length: 965
 {'loss': 9.5592, 'grad_norm': 8.615543365478516, 'learning_rate': 4.769850402761795e-05, 'epoch': 0.05}
 {'loss': 2.1567, 'grad_norm': 5.4981865882873535, 'learning_rate': 4.539700805523591e-05, 'epoch': 0.09}
 {'loss': 1.2198, 'grad_norm': 1.03268301486969, 'learning_rate': 4.3095512082853856e-05, 'epoch': 0.14}
+{'loss': 1.0192, 'grad_norm': 0.5772875547409058, 'learning_rate': 4.079401611047181e-05, 'epoch': 0.18}
+{'loss': 0.9714, 'grad_norm': 0.6128429174423218, 'learning_rate': 3.849252013808976e-05, 'epoch': 0.23}
+{'loss': 0.9745, 'grad_norm': 0.48260247707366943, 'learning_rate': 3.619102416570771e-05, 'epoch': 0.28}
