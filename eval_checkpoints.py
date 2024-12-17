@@ -22,7 +22,6 @@ import argparse
 import json
 from sklearn.metrics import accuracy_score
 
-
 def generate_summary(input_ids, model, tokenizer):
     outputs = model.generate(input_ids, max_new_tokens=300)
     text = tokenizer.batch_decode(outputs)
@@ -35,30 +34,57 @@ def generate_answer(input_ids, attention_mask, model, tokenizer):
     return label
 
 
+def get_ngrams(text, n):
+    """
+    Generate n-grams from text.
+    """
+    words = text.split()
+    return [' '.join(words[i:i+n]) for i in range(len(words)-n+1)]
+
+
 def evaluate_summary(
     summarization_outputs, summarization_val_dataset, tokenizer, verbose
 ):
+    """
+    Evaluates summaries against keywords, supporting multi-word keywords.
+    Returns the average keyword match percentage across all summaries.
+    """
     total_keyword_match_percentage = 0
+    
     for output, keywords in tqdm(
         zip(summarization_outputs, summarization_val_dataset["gpt_keywords"])
     ):
         keyword_matches = 0
-        pred_words = output["generated_summary"].lower().split()
+        generated_text = output["generated_summary"].lower()
+        
+        # Generate n-grams up to the length of the longest keyword
+        # max_keyword_length = max(len(keyword.split()) for keyword in keywords)
+        all_ngrams = []
+        for n in range(1, 6):
+            all_ngrams.extend(get_ngrams(generated_text, n))
+        
+        # Match each keyword against the appropriate n-grams
         for keyword in keywords:
+            keyword = keyword.lower()
             best_match = process.extractOne(
-                keyword.lower(), pred_words, scorer=fuzz.ratio, score_cutoff=80
+                keyword, all_ngrams, scorer=fuzz.ratio, score_cutoff=80
             )
+            
             if best_match is not None:
                 keyword_matches += 1
+        
         match_percentage = (keyword_matches / len(keywords)) * 100
+        
         if verbose:
             print(
-                f"Completion: {output['generated_summary'].replace(tokenizer.pad_token, '')}\nKeywords: {keywords}, Match percentage: {match_percentage}"
+                f"Completion: {output['generated_summary'].replace(tokenizer.pad_token, '')}\n"
+                f"Keywords: {keywords}, Match percentage: {match_percentage}"
             )
+            
         total_keyword_match_percentage += match_percentage
 
+    # Calculate and return the average match percentage
     return total_keyword_match_percentage / len(summarization_outputs)
-
 
 def evaluate_qna(qna_outputs, qna_val_dataset, tokenizer, verbose):
     accuracy = accuracy_score(qna_val_dataset["labels"], qna_outputs["prediction"])
