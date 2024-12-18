@@ -118,7 +118,7 @@ def process_batch(task, batch, model, tokenizer, verbose=False):
 
 
 def evaluate(task, checkpoint_path, tokenizer, val_dataset, verbose=False):
-    if task == "summary":
+    if task == "summarize":
         model = AutoModelForSeq2SeqLM.from_pretrained(
             checkpoint_path, device_map="auto"
         )

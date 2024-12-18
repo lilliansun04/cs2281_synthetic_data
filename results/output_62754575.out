@@ -1,6 +1,0 @@
-Number of GPUs available: 1
-GPU 0: NVIDIA H100 80GB HBM3
-Number of GPUs available: 1
-GPU 0: NVIDIA H100 80GB HBM3
-Size of input_ids tensor: torch.Size([2630]), dtype: torch.int64
-Actual sequence length: 293

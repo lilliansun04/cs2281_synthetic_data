@@ -1,0 +1,28 @@
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
+Number of GPUs available: 1
+GPU 0: NVIDIA H100 80GB HBM3
+Size of input_ids tensor: torch.Size([2630]), dtype: torch.int64
+Actual sequence length: 293
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-40
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-80
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-120
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-160
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-200
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-240
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-280
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-320
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-360
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-400
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-440
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-480
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-520
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-560
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-600
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-640
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-680
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-720
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-760
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-800
+Processing /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/t5-base_1_no_eval_seed_3/checkpoint-840
+DONE
