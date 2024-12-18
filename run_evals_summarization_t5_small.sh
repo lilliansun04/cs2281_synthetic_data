@@ -6,7 +6,7 @@
 #SBATCH -t 0-23:59                                                          # Runtime in D-HH:MM
 #SBATCH -o /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data/results/output_%j.out         # File to which STDOUT will be written, %j inserts jobid
 #SBATCH -e /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data/results/output_%j.err        # File to which STDERR will be written, %j inserts jobid
-#SBATCH --array=1-3
+#  #SBATCH --array=1-3
 #SBATCH --account kempner_sham_lab #hlakkaraju_lab                        # Change to your lab's cluster account
 #SBATCH --mail-user=lilliansun@college.harvard.edu
 

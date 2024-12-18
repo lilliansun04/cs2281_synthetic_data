@@ -22,10 +22,6 @@ import argparse
 import json
 from sklearn.metrics import accuracy_score
 
-token = "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"
-filter_list = [40, 240, 840]
-
-
 def generate_summary(input_ids, model, tokenizer):
     outputs = model.generate(input_ids, max_new_tokens=300)
     text = tokenizer.batch_decode(outputs)
@@ -90,9 +86,13 @@ def evaluate_summary(
     # Calculate and return the average match percentage
     return total_keyword_match_percentage / len(summarization_outputs)
 
-
 def evaluate_qna(qna_outputs, qna_val_dataset, tokenizer, verbose):
     accuracy = accuracy_score(qna_val_dataset["labels"], qna_outputs["prediction"])
+    # if verbose:
+    #     for output, label in zip(qna_outputs, qna_val_dataset["labels"]):
+    #         print(
+    #             f"Question: {tokenizer.decode(torch.tensor(qna_outputs['input_ids']))}, Prediction: {output['prediction']}, Label: {label}, Match: {output['prediction'] == label}"
+    #         )
     return accuracy
 
 
@@ -117,24 +117,11 @@ def process_batch(task, batch, model, tokenizer, verbose=False):
         return batch
 
 
-def evaluate(
-    task,
-    checkpoint_path,
-    tokenizer,
-    val_dataset,
-    model_name,
-    verbose=False,
-):
+def evaluate(task, checkpoint_path, tokenizer, val_dataset, verbose=False):
     if task == "summarize":
-        if checkpoint_path is None:
-            print(f"Loading model {model_name} from HuggingFace")
-            model = AutoModelForSeq2SeqLM.from_pretrained(
-                model_name, device_map="auto", token=token
-            )
-        else:
-            model = AutoModelForSeq2SeqLM.from_pretrained(
-                checkpoint_path, device_map="auto"
-            )
+        model = AutoModelForSeq2SeqLM.from_pretrained(
+            checkpoint_path, device_map="auto"
+        )
         summarization_outputs = val_dataset.map(
             lambda batch: process_batch(task, batch, model, tokenizer),
             batched=True,
@@ -143,15 +130,9 @@ def evaluate(
 
         return evaluate_summary(summarization_outputs, val_dataset, tokenizer, verbose)
     else:
-        if checkpoint_path is None:
-            print(f"Loading model {model_name} from HuggingFace")
-            model = AutoModelForSequenceClassification.from_pretrained(
-                model_name, device_map="auto", token=token
-            )
-        else:
-            model = AutoModelForSequenceClassification.from_pretrained(
-                checkpoint_path, device_map="auto"
-            )
+        model = AutoModelForSequenceClassification.from_pretrained(
+            checkpoint_path, device_map="auto"
+        )
         qna_outputs = val_dataset.map(
             lambda batch: process_batch(task, batch, model, tokenizer, verbose),
             batched=True,
@@ -169,8 +150,8 @@ def main(
     dataset_prop,
     output_dir,
     verbose=False,
-    baseline=False,
 ):
+    token = "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"
     tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
     if task == "summarize":
         val_dataset = preprocess_summarization_data(
@@ -178,27 +159,14 @@ def main(
         )
     else:
         val_dataset = preprocess_qna_data(dataset_path, tokenizer, dataset_prop)
-
-    if not baseline:
-        for root, dirs, files in os.walk(checkpoint_path):
-            dirs.sort(key=lambda x: int(x.split("-")[-1]))
-            for dir_name in dirs:
-                checkpoint = os.path.join(root, dir_name)
-                print(dir_name)
-                if int(os.path.basename(dir_name).split("-")[-1]) in filter_list:
-                    print("Processing", checkpoint)
-                    pct = evaluate(
-                        task, checkpoint, tokenizer, val_dataset, model_name, verbose
-                    )
-                    with open(
-                        os.path.join(output_dir, "evaluation_results.csv"), "a"
-                    ) as f:
-                        f.write(f"{dir_name},{pct}\n")
-    else:
-        pct = evaluate(task, model_name, tokenizer, val_dataset, model_name, verbose)
-        with open(os.path.join(output_dir, "baseline.csv"), "a") as f:
-            f.write(f"{model_name},{pct}\n")
-        print(f"Baseline evaluation {model_name} complete: {pct}")
+    for root, dirs, files in os.walk(checkpoint_path):
+        dirs.sort(key=lambda x: int(x.split("-")[-1]))
+        for dir_name in dirs:
+            checkpoint = os.path.join(root, dir_name)
+            print("Processing", checkpoint)
+            pct = evaluate(task, checkpoint, tokenizer, val_dataset, verbose)
+            with open(os.path.join(output_dir, "evaluation_results.csv"), "a") as f:
+                f.write(f"{dir_name},{pct}\n")
 
 
 if __name__ == "__main__":
@@ -237,17 +205,9 @@ if __name__ == "__main__":
         help="Output directory for evaluation results",
     )
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
-    parser.add_argument(
-        "--baseline", action="store_true", help="Evaluate baseline model"
-    )
     args = parser.parse_args()
 
-    if not args.baseline:
-        output_dir = os.path.join(
-            args.output_dir, os.path.basename(args.checkpoint_path)
-        )
-    else:
-        output_dir = args.output_dir
+    output_dir = os.path.join(args.output_dir, os.path.basename(args.checkpoint_path))
     os.makedirs(output_dir, exist_ok=True)
     args_dict = vars(args)
     with open(os.path.join(output_dir, "args.json"), "w") as f:
@@ -261,5 +221,4 @@ if __name__ == "__main__":
         args.dataset_prop,
         output_dir,
         args.verbose,
-        args.baseline,
     )

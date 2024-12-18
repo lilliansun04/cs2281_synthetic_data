@@ -1,6 +1,0 @@
-usage: eval_checkpoints.py [-h] --task {summarize,qna} --checkpoint_path
-                           CHECKPOINT_PATH --model_name MODEL_NAME
-                           [--val_data_path VAL_DATA_PATH]
-                           [--dataset_prop DATASET_PROP]
-                           [--output_dir OUTPUT_DIR] [--verbose]
-eval_checkpoints.py: error: unrecognized arguments: --baseline
