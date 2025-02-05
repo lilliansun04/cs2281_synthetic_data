@@ -1,0 +1,29 @@
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+/n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data /n/holylabs/LABS/hlakkaraju_lab/Users/lilliansun/cs2281_synthetic_data
+Running finetuning_summarization_gemma_no_eval.py
+Saving results to results/summarization/gemma-2b_1_no_eval_seed_1
+Number of GPUs available: 4
+GPU 0: NVIDIA H100 80GB HBM3
+GPU 1: NVIDIA H100 80GB HBM3
+GPU 2: NVIDIA H100 80GB HBM3
+GPU 3: NVIDIA H100 80GB HBM3
+Model name: google/gemma-2-2b-it
+Output directory: results/summarization/
+Scratch directory: /n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/
+Unique save name: gemma-2b_1_no_eval_seed_1
+Dataset proportion: 1.0
+Summarization train filepath: synthetic/summary_train.csv
+Summarization val filepath: synthetic/summary_val.csv
+Summarization test filepath: synthetic/summary_test.csv
+Batch size: 8
+Evaluation steps: 40
+Random seed: 1
+Random test: 0.13436424411240122
+Numpy test: 0.417022004702574
+Torch test: 0.7576315999031067
+Size of input_ids tensor: torch.Size([2651]), dtype: torch.int64
+Actual sequence length: 512
+Size of input_ids tensor: torch.Size([2409]), dtype: torch.int64
+Actual sequence length: 264
+Size of input_ids tensor: torch.Size([3000]), dtype: torch.int64
+Actual sequence length: 902

@@ -33,7 +33,7 @@ scratch_dir="/n/netscratch/hlakkaraju_lab/Everyone/lilliansun/synthetic_data/"
 dataset_prop=1 # how much of the dataset to use (as a fraction not a percentage)
 # TODO: give a unique name for saving results **IMPORTANT: giving same name as a previous run will overwrite the results and checkpoints!**
 # TODO: edit unique_save_name to match model name
-unique_save_name="gemma-2b_"$dataset_prop"_no_eval_seed_"$SLURM_ARRAY_TASK_ID
+unique_save_name="gemma-2b_"$dataset_prop"_no_eval_human_seed_"$SLURM_ARRAY_TASK_ID
 summarization_train_filepath="synthetic/summary_train.csv"
 summarization_val_filepath="synthetic/summary_val.csv"
 summarization_test_filepath="synthetic/summary_test.csv"
@@ -42,10 +42,10 @@ batch_size=8
 eval_steps=40
 random_seed=$SLURM_ARRAY_TASK_ID
 
-echo "Running finetuning_summarization_gemma_no_eval.py"
+echo "Running finetuning_summarization_gemma_no_eval_human.py"
 echo "Saving results to $output_dir$unique_save_name"
 ## Run the experiment
 # arguments: model_name, output_dir, scratch_dir,
 #            summarization_train_filepath, summarization_val_filepath, summarization_test_filepath, 
-python -u $CODE_DIR/finetuning_summarization_gemma_no_eval.py $model_name $output_dir $scratch_dir $unique_save_name $dataset_prop $summarization_train_filepath $summarization_val_filepath $summarization_test_filepath $batch_size $eval_steps $random_seed
+python -u $CODE_DIR/finetuning_summarization_gemma_no_eval_human.py $model_name $output_dir $scratch_dir $unique_save_name $dataset_prop $summarization_train_filepath $summarization_val_filepath $summarization_test_filepath $batch_size $eval_steps $random_seed
 echo "DONE"
